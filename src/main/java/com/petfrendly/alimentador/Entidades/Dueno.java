@@ -11,7 +11,7 @@ public class Dueno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-    private String telefono;
+    private String contacto;
 
     @OneToMany(mappedBy = "dueno", cascade = CascadeType.ALL)
     private List<Mascota> mascotas;
@@ -33,12 +33,12 @@ public class Dueno {
         this.nombre = nombre;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getContacto() {
+        return contacto;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
     }
 
     public List<Mascota> getMascotas() {

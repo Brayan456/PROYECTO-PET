@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Reporte de Mascota Perdida</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <h1>Reporte de Mascota Perdida</h1>
@@ -13,9 +13,38 @@
             <label for="id">ID de la Mascota:</label>
             <input type="number" id="id" name="id" required>
         </div>
+        <div>
+            <label for="latitud">Latitud:</label>
+            <input type="text" id="latitud" name="latitud" readonly>
+        </div>
+        <div>
+            <label for="longitud">Longitud:</label>
+            <input type="text" id="longitud" name="longitud" readonly>
+        </div>
+        <div>
+            <button type="button" onclick="obtenerUbicacion()">Obtener Ubicación</button>
+        </div>
         <button type="submit">Reportar Mascota Perdida</button>
     </form>
 
     <p th:text="${mensaje}"></p>
+
+     <!-- Espacio para mostrar la ubicación -->
+     <p id="ubicacion"></p>
+ 
+     <script>
+        function obtenerUbicacion() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    document.getElementById('latitud').value = position.coords.latitude;
+                    document.getElementById('longitud').value = position.coords.longitude;
+                }, function(error) {
+                    console.log('Error al obtener la ubicación: ' + error.message);
+                });
+            } else {
+                alert('La geolocalización no es compatible con este navegador.');
+            }
+        }
+    </script>
 </body>
 </html>

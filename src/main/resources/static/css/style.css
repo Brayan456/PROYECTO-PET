@@ -25,13 +25,14 @@ input {
 }
 button{
     padding: 10px 20px;
+    margin-bottom: 10px;
     font-family: monospace;
     border-radius: 8px;
     border-style: none;
     background-color: #6d32c0;
     color: snow;
 }
-@media (max-width: 500px) {
+@media (max-width: 1200px) {
     body {
       flex-direction: column; /* Cambiar a columna en pantallas más pequeñas */
     }

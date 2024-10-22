@@ -12,7 +12,8 @@ public class MascotaPerdidaProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void enviarEvento(Long idMascota) {
-        kafkaTemplate.send("mascota_perdida", idMascota.toString());
+    public void enviarEvento(Long idMascota, String latitud, String longitud){
+        String mensaje = idMascota + "," + latitud + "," + longitud;
+        kafkaTemplate.send("mascota_perdida", mensaje);
     }
 }

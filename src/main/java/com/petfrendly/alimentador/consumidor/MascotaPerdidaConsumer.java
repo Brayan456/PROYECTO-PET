@@ -23,16 +23,22 @@ public class MascotaPerdidaConsumer {
     }
 
     @KafkaListener(topics = "mascota_perdida", groupId = "perreras_group")
-    public void consumirEvento(String idMascota) {
+    public void consumirEvento(String mensaje) {
+        // Dividir el mensaje por comas
+        String[] partes = mensaje.split(",");
+        String idMascota = partes[0];
+        String latitud = partes[1];
+        String longitud = partes[2];
         Optional<Mascota> mascotaOpt = mascotaRepository.findById(Long.parseLong(idMascota));
 
         if (mascotaOpt.isPresent()) {
             Mascota mascota = mascotaOpt.get();
-            String correoDueño = mascota.getDueno().getTelefono();  // Aquí el teléfono es el correo
+            String correoDueño = mascota.getDueno().getContacto();  // Aquí el teléfono es el correo
             String asunto = "Mascota Perdida: " + mascota.getNombre();
             String contenido = "<h1>¡Aviso de Mascota Perdida!</h1>" +
                     "<p>Tu mascota <strong>" + mascota.getNombre() + "</strong> ha sido reportada como perdida.</p>" +
-                    "<p>Lugar de Vivienda: " + mascota.getLugarVivienda() + "</p>";
+                    "<p>Ubicación: : Latitud = " + latitud + ", Longitud = " + longitud + "</p>";
+
 
             emailService.enviarCorreo(correoDueño, asunto, contenido);
         } else {

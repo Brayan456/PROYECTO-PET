@@ -25,9 +25,10 @@ public class MascotaPerdidaController {
     }
 
     @PostMapping("/perdida")
-    public String reportarPerdida(@RequestParam Long id, Model model) {
-        producer.enviarEvento(id);
-        model.addAttribute("mensaje", "Evento de mascota perdida enviado correctamente.");
-        return "perdida";
+    public String reportarPerdida(@RequestParam Long id, @RequestParam String latitud, @RequestParam String longitud, Model model) {
+    producer.enviarEvento(id, latitud, longitud);
+    model.addAttribute("mensaje", "Evento de mascota perdida enviado correctamente con ubicación.");
+    return "perdida";
     }
-}
+    }
+
